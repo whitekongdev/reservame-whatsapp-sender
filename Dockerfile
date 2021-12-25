@@ -28,10 +28,11 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && chown -R pptruser:pptruser /sessions \
     && chown -R pptruser:pptruser /usr/src/app/node_modules
 
-USER pptruser
-
 COPY . /usr/src/app
 
+RUN npm install
+
+USER pptruser
 
 ENV NODE_ENV production
 
@@ -41,7 +42,6 @@ ENV IN_DOCKER true
 ENV WA_USE_CHROME true
 ENV WA_POPUP true
 ENV WA_DISABLE_SPINS true
-RUN npm i
 #PORT will most likely be set by your cloud provider. If not, uncomment the next line and set it here
 # ENV PORT 8080
 
