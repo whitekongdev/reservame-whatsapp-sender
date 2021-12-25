@@ -19,6 +19,7 @@ RUN apt upgrade -y
 ENV PUPPETEER_SKIP_DOWNLOAD true
 
 RUN npm i @open-wa/wa-automate@latest
+RUN npm i amqplib
     # Add user so we don't need --no-sandbox.
     # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
@@ -28,11 +29,9 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && chown -R pptruser:pptruser /sessions \
     && chown -R pptruser:pptruser /usr/src/app/node_modules
 
-COPY . /usr/src/app
-
-RUN npm install
-
 USER pptruser
+
+COPY . /usr/src/app
 
 ENV NODE_ENV production
 
