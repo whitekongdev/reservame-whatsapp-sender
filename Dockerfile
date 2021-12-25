@@ -41,7 +41,7 @@ ENV IN_DOCKER true
 ENV WA_USE_CHROME true
 ENV WA_POPUP true
 ENV WA_DISABLE_SPINS true
-
+RUN npm i
 #PORT will most likely be set by your cloud provider. If not, uncomment the next line and set it here
 # ENV PORT 8080
 
