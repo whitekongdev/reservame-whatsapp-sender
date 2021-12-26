@@ -18,8 +18,8 @@ RUN apt upgrade -y
 # skip the puppeteer browser download
 ENV PUPPETEER_SKIP_DOWNLOAD true
 
-COPY ["package.json", "package-lock.json*", "/usr/src/app/"]
-RUN npm install --production
+COPY . /usr/src/app
+RUN npm install
 
     # Add user so we don't need --no-sandbox.
     # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
@@ -31,8 +31,6 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && chown -R pptruser:pptruser /usr/src/app/node_modules
 
 USER pptruser
-
-COPY . /usr/src/app
 
 ENV NODE_ENV production
 
