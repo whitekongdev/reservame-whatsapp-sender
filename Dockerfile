@@ -18,8 +18,9 @@ RUN apt upgrade -y
 # skip the puppeteer browser download
 ENV PUPPETEER_SKIP_DOWNLOAD true
 
-RUN npm i @open-wa/wa-automate@latest
-RUN npm i amqplib
+COPY ["package.json", "package-lock.json*", "/usr/src/app/"]
+RUN npm install --production
+
     # Add user so we don't need --no-sandbox.
     # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
@@ -41,6 +42,7 @@ ENV IN_DOCKER true
 ENV WA_USE_CHROME true
 ENV WA_POPUP true
 ENV WA_DISABLE_SPINS true
+
 #PORT will most likely be set by your cloud provider. If not, uncomment the next line and set it here
 # ENV PORT 8080
 

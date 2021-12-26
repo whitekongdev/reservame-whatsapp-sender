@@ -1,5 +1,3 @@
-const fs = require('fs');
-const fsPromises = require('fs').promises;
 const { create, ev } = require('@open-wa/wa-automate');
 const amqp = require('amqplib/callback_api');
 
@@ -59,7 +57,7 @@ function connect() {
 setTimeout(() => {
   connect();
   create().then(start);
-}, 40000);
+}, 20000);
 
 // Envía el QR por correo
 ev.on('qr.**', async qrcode => {
