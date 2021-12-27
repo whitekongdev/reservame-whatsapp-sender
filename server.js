@@ -56,7 +56,9 @@ function connect() {
 
 setTimeout(() => {
   connect();
-  create().then(start);
+  create({
+    licenseKey: process.env.WA_API_LEY
+  }).then(start);
 }, 20000);
 
 // Envía el QR por correo
