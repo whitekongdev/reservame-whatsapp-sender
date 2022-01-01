@@ -8,8 +8,10 @@ let channelMail;
 let queueMail;
 
 // Captura el cliente que ha hecho login
-function start(client) {
+async function start(client) {
   clientLogged = client;
+  const hostAccountNumber = await client.getHostNumber();
+  console.log('Host account ->', hostAccountNumber);
 }
 
 // Envía mensajes
@@ -57,7 +59,8 @@ function connect() {
 setTimeout(() => {
   connect();
   create({
-    licenseKey: process.env.WA_API_LEY
+    licenseKey: process.env.WA_API_KEY,
+    qrTimeout: 0,
   }).then(start);
 }, 20000);
 
